@@ -15,13 +15,22 @@ namespace Assignment_4
     {
 
         /// <summary>
-        /// LoginName1 control.
+        /// memberFirstNameLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LoginName LoginName1;
+        protected global::System.Web.UI.WebControls.Label memberFirstNameLabel;
+
+        /// <summary>
+        /// memberLastNameLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label memberLastNameLabel;
 
         /// <summary>
         /// memberGridView control.

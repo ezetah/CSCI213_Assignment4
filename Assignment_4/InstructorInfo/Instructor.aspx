@@ -4,12 +4,19 @@
     <main aria-labelledby="title">
         <h3>Instructor</h3>
        
-        <asp:Panel ID="Panel1" runat="server">
+
+
+            <p>Hello,
+
+            <asp:Label ID="instructorFirstNameLabel" runat="server" Text="Label"></asp:Label>
+            <asp:Label ID="instructorLastNameLabel" runat="server" Text="Label"></asp:Label></p>
+            <asp:LoginStatus runat="server"></asp:LoginStatus>
+            
+
 
             <asp:GridView ID="instructorGridView" runat="server"></asp:GridView>
 
 
-        </asp:Panel>
 
     </main>
 </asp:Content>

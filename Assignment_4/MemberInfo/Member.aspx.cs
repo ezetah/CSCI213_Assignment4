@@ -35,21 +35,46 @@ namespace Assignment_4
 
             if (!IsPostBack)
             {
+                if(HttpContext.Current.Session["userID"] != null)
+                {
+                    //get current member
+                    int currentUser = (int)HttpContext.Current.Session["userID"];
 
-                var result = from member in dbcon.Members
-                             orderby member.Member_UserID
-                             join sect in dbcon.Sections on member.Member_UserID equals sect.Member_ID
-                             select new
-                             {
-                                 member.MemberFirstName,
-                                 member.MemberLastName,
-                                 member.MemberDateJoined,
-                                 sect.SectionFee,
-                             };
-               
+                    var user = from member in dbcon.Members
+                               where member.Member_UserID == currentUser
+                               select new
+                               {
+                                   member.MemberLastName,
+                                   member.MemberFirstName,
+                               };
 
-                memberGridView.DataSource = result.ToList();
-                memberGridView.DataBind();
+                    memberFirstNameLabel.Text = user.First().MemberFirstName;
+                    memberLastNameLabel.Text = user.First().MemberLastName;
+
+
+                    //display on grid
+                    var result = from member in dbcon.Members
+                                 where member.Member_UserID == currentUser
+                                 orderby member.Member_UserID
+                                 join sect in dbcon.Sections on member.Member_UserID equals sect.Member_ID
+                                 join instructor in dbcon.Instructors on sect.Instructor_ID equals instructor.InstructorID
+                                 select new
+                                 {
+                                     sect.SectionName,
+                                     instructor.InstructorFirstName,
+                                     instructor.InstructorLastName,
+                                     member.MemberDateJoined,
+                                     sect.SectionFee,
+                                 };
+
+
+                    memberGridView.DataSource = result.ToList();
+                    memberGridView.DataBind();
+                }
+                
+
+
+                
 
             }
         }

@@ -14,12 +14,12 @@ namespace Assignment_4
     {
         KarateSchoolDataContext dbcon;
 
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session.Count != 0)
             {
-                if (HttpContext.Current.Session["userType"].ToString().Trim() == "Member" || 
+                if (HttpContext.Current.Session["userType"].ToString().Trim() == "Member" ||
                     HttpContext.Current.Session["userType"].ToString().Trim() == "Administrator")
                 {
                     Session.Clear();
@@ -39,24 +39,43 @@ namespace Assignment_4
 
             if (!IsPostBack)
             {
+                if (HttpContext.Current.Session["userID"] != null)
+                {
+                    //get current member
+                    int currentUser = (int)HttpContext.Current.Session["userID"];
 
-                var result = from instructor in dbcon.Instructors
-                             orderby instructor.InstructorID
-                             join sect in dbcon.Sections on instructor.InstructorID equals sect.Instructor_ID
-                             join member in dbcon.Members on sect.Member_ID equals member.Member_UserID
-                             select new
-                             {
-                                 sect.SectionName,
-                                 member.MemberFirstName,
-                                 member.MemberLastName,
-                                 
-                             };
+                    var user = from instructor in dbcon.Instructors
+                               where instructor.InstructorID == currentUser
+                               select new
+                               {
+                                   instructor.InstructorFirstName,
+                                   instructor.InstructorLastName,
+                               };
+
+                    instructorFirstNameLabel.Text = user.First().InstructorFirstName;
+                    instructorLastNameLabel.Text = user.First().InstructorLastName;
 
 
-                instructorGridView.DataSource = result.ToList();
-                instructorGridView.DataBind();
+
+                    var result = from instructor in dbcon.Instructors
+                                 where instructor.InstructorID == currentUser
+                                 orderby instructor.InstructorID
+                                 join sect in dbcon.Sections on instructor.InstructorID equals sect.Instructor_ID
+                                 join member in dbcon.Members on sect.Member_ID equals member.Member_UserID
+                                 select new
+                                 {
+                                     sect.SectionName,
+                                     member.MemberFirstName,
+                                     member.MemberLastName,
+
+                                 };
 
 
+                    instructorGridView.DataSource = result.ToList();
+                    instructorGridView.DataBind();
+
+
+                }
             }
         }
     }
