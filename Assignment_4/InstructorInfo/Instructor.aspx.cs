@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -17,6 +18,13 @@ namespace Assignment_4
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            string databaseFileName = "KarateSchool(1)(1).mdf";
+            string directoryPath = AppDomain.CurrentDomain.BaseDirectory;
+            string databaseFilePath = Path.Combine(directoryPath, "App_Data", databaseFileName);
+
+            string conn = $@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={databaseFilePath};Integrated Security=True;Connect Timeout=30";
+
             if (Session.Count != 0)
             {
                 if (HttpContext.Current.Session["userType"].ToString().Trim() == "Member" ||
@@ -34,8 +42,8 @@ namespace Assignment_4
 
 
 
-            string connString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\ejzet\\source\\repos\\ezetah\\CSCI213_Assignment4\\Assignment_4\\App_Data\\KarateSchool(1)(1).mdf;Integrated Security=True;Connect Timeout=30";
-            dbcon = new KarateSchoolDataContext(connString);
+            //string connString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\ejzet\\source\\repos\\ezetah\\CSCI213_Assignment4\\Assignment_4\\App_Data\\KarateSchool(1)(1).mdf;Integrated Security=True;Connect Timeout=30";
+            dbcon = new KarateSchoolDataContext(conn);
 
             if (!IsPostBack)
             {

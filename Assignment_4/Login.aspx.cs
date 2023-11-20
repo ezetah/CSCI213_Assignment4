@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -11,9 +12,20 @@ namespace Assignment_4
     public partial class Login : System.Web.UI.Page
     {
         KarateSchoolDataContext dbcon;
-        string conn = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\ejzet\\source\\repos\\ezetah\\CSCI213_Assignment4\\Assignment_4\\App_Data\\KarateSchool(1)(1).mdf;Integrated Security=True;Connect Timeout=30";
+
+
+        
+
+        //string conn = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\ejzet\\source\\repos\\ezetah\\CSCI213_Assignment4\\Assignment_4\\App_Data\\KarateSchool(1)(1).mdf;Integrated Security=True;Connect Timeout=30";
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            string databaseFileName = "KarateSchool(1)(1).mdf";
+            string directoryPath = AppDomain.CurrentDomain.BaseDirectory;
+            string databaseFilePath = Path.Combine(directoryPath, "App_Data", databaseFileName);
+
+            string conn = $@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={databaseFilePath};Integrated Security=True;Connect Timeout=30";
+
             dbcon = new KarateSchoolDataContext(conn);   
         }
 
@@ -25,13 +37,21 @@ namespace Assignment_4
             HttpContext.Current.Session["nUserName"] = nUserName;
             HttpContext.Current.Session["uPass"] = nPassword;
 
-            //search for user in database
-            NetUser user = (from x in dbcon.NetUsers
-                            where x.UserName ==
-            HttpContext.Current.Session["nUserName"].ToString()
-                            && x.UserPassword ==
-            HttpContext.Current.Session["uPass"].ToString()
-                            select x).First();
+            NetUser user = null;
+
+            try
+            {
+                //search for user in database
+                user = (from x in dbcon.NetUsers
+                                where x.UserName ==
+                HttpContext.Current.Session["nUserName"].ToString()
+                                && x.UserPassword ==
+                HttpContext.Current.Session["uPass"].ToString()
+                                select x).First();
+            } catch (System.InvalidOperationException e1) 
+            {
+                Login1.UserName = "";
+            }
 
             if (user != null) 
             {
