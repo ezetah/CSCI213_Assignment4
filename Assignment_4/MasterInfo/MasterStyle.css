@@ -1,0 +1,93 @@
+﻿.navStyle {
+    background-color: #323232;
+    justify-content: center;
+    text-align: center;
+}
+
+.nav-link,
+.navbar-brand {
+    color: white;
+    padding: 15px;
+}
+
+.loginColor {
+    background-color: #323232;
+    background: #323232;
+}
+
+.brandText {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 40px;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    font-style: normal;
+}
+
+.linkText {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 16px;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    color: white;
+    font-weight: normal;
+    text-decoration: none;
+    font-style: normal;
+}
+
+.backColor {
+    background-color: #943100;
+}
+
+.logTitle{
+    font-size: 50px;
+}
+
+
+.hello {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 16px;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    color: #000000;
+    font-weight: normal;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: none;
+}
+
+.heading {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 30px;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    color: #000000;
+    font-weight: normal;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: none;
+}
+
+.table-condensed tr th {
+    border: 0px solid #6e7bd9;
+    color: white;
+    background-color: black;
+    font-family: "Courier New", Courier, monospace;
+}
+
+.table-condensed, .table-condensed tr td {
+    border: 0px solid #000;
+    font-family: "Courier New", Courier, monospace;
+}
+
+tr:nth-child(even) {
+    background: #f8f7ff
+}
+
+tr:nth-child(odd) {
+    background: #fff;
+}
